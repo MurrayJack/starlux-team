@@ -34,6 +34,12 @@ export default {
             type: 'boolean'
         },
         {
+            title: 'Versions',
+            name: 'versions',
+            type: 'array',
+            of: [{ type: 'version' }]
+        },
+        {
             name: 'category',
             title: 'Category',
             type: 'string',

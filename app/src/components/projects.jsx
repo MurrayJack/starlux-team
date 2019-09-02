@@ -13,7 +13,7 @@ const StyledH1 = styled.h1`
     padding: 0;
     margin: 0;
     font-size: 1.5em;
-    border-bottom: 1px solid #150129;
+    border-bottom: 1px solid currentColor;
 `;
 
 const StyledProject = styled.div`
@@ -27,21 +27,31 @@ const StyledHr = styled.hr`
     background-color: deeppink;
 `
 
-const StyledVersion = styled.div`
+const StyledVersion = styled.li`
     display: inline-block;
-    background-color: #d3d6d6;
+    background-color: #e3e6e6;
     line-height: 1.4em;
     padding: 4px 10px;
     margin: 4px;
     border-radius: 3px;
     font-size: 12px;
+
+    > a {
+        text-decoration: none;
+        color: currentColor;
+    }
+
+    &:hover {
+        background-color: blue;
+        color: white;
+    }
 `
 
 const Project = ({ Data }) =>
     <StyledProject>
         <StyledH1>{Data.title}</StyledH1>
         <p>{Data.description}</p>
-        <ul><StyledVersion>1</StyledVersion></ul>
+        <ul>{Data.versions.map((e) => <StyledVersion><a target="_new" href={e.url}>{e.version}</a></StyledVersion>)}</ul>
         <StyledHr />
     </StyledProject>
 
@@ -53,7 +63,10 @@ const Projects = () => {
                 nodes {
                     title
           	        description
-          	        url
+          	        versions {
+                        version
+                        url
+                    }
                 }
             }
         }    

@@ -6,6 +6,7 @@ import schemaTypes from 'all:part:@sanity/base/schema-type'
 import project from "./project";
 import members from "./members";
 import app from "./app";
+import version from "./version";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -18,6 +19,7 @@ export default createSchema({
     // in the studio.
     project,
     members,
-    app
+    app,
+    version
   ])
 })
