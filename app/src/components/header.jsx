@@ -17,6 +17,17 @@ const StyledHeader = styled.header`
   background-color: rgba(0, 0, 0, 0.4);
 `
 
+const MailToLink = styled.a`
+  color: white;
+  font-size: 1.1em;
+  text-decoration: none;
+  text-transform: lowercase;
+
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 const Header = () => {
   const data = useStaticQuery(graphql`
   {
@@ -53,7 +64,7 @@ const Header = () => {
 
         <div><Members /></div>
 
-        <div><a href="mailto:data.sanityApp.email">{data.sanityApp.email}</a></div>
+        <div><MailToLink href="mailto:data.sanityApp.email">{data.sanityApp.email}</MailToLink></div>
       </StyledHeader>
     </BackgroundImage>
   )
