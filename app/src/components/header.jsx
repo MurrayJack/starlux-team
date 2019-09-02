@@ -3,6 +3,7 @@ import Members from "./members";
 import TeamLogo from "./teamlogo";
 import styled from "styled-components";
 import { useStaticQuery, graphql } from "gatsby"
+import BackgroundImage from 'gatsby-background-image'
 
 const StyledHeader = styled.header`
   display: grid;
@@ -10,10 +11,10 @@ const StyledHeader = styled.header`
   grid-gap: 20px;
   height: 100%;
   box-sizing: border-box;
-  background-color: #293546;
   color: white;
   padding: 2.5em;
   text-align: right;
+  background-color: rgba(0, 0, 0, 0.4);
 `
 
 const Header = () => {
@@ -23,22 +24,39 @@ const Header = () => {
     	  moto
         email
     }
+
+    desktop: file(relativePath: { eq: "backgound.jpg" }) {
+          childImageSharp {
+            fluid(quality: 90, maxWidth: 1920) {
+              ...GatsbyImageSharpFluid_withWebp
+            }
+          }
+      }
   }
 `)
 
+  const imageData = data.desktop.childImageSharp.fluid
 
-  return <StyledHeader>
-    <div><TeamLogo /></div>
+  return (
+    <BackgroundImage
+      Tag="section"
+      fluid={imageData}
+      backgroundColor={`#293546`}
+    >
+      <StyledHeader>
 
-    <div>{data.sanityApp.moto}</div>
+        <div><TeamLogo /></div>
 
-    <div><hr /></div>
+        <div>{data.sanityApp.moto}</div>
 
-    <div><Members /></div>
+        <div><hr /></div>
 
-    <div>{data.sanityApp.email}</div>
+        <div><Members /></div>
 
-  </StyledHeader>
+        <div>{data.sanityApp.email}</div>
+      </StyledHeader>
+    </BackgroundImage>
+  )
 }
 
 export default Header
