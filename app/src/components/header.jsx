@@ -53,7 +53,7 @@ const Header = () => {
 
         <div><Members /></div>
 
-        <div>{data.sanityApp.email}</div>
+        <div><a href="mailto:data.sanityApp.email">{data.sanityApp.email}</a></div>
       </StyledHeader>
     </BackgroundImage>
   )

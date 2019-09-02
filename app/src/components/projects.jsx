@@ -31,18 +31,19 @@ const StyledVersion = styled.li`
     display: inline-block;
     background-color: #e3e6e6;
     line-height: 1.4em;
-    padding: 4px 10px;
     margin: 4px;
     border-radius: 3px;
-    font-size: 12px;
+    font-size: 14px;
 
     > a {
+        display: inline-block;
         text-decoration: none;
         color: currentColor;
+        padding: 4px 10px;
     }
 
     &:hover {
-        background-color: blue;
+        background-color: rgb(71, 160, 183);;
         color: white;
     }
 `
