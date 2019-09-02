@@ -5,20 +5,46 @@ import styled from "styled-components";
 const StyledHeader = styled.header`
   padding: 2.5em;
   box-sizing: border-box;
-  height: calc(100vh - 5em);
+  height: 100vh;
   overflow: scroll;
 `
 
+const StyledH1 = styled.h1`
+    padding: 0;
+    margin: 0;
+    font-size: 1.5em;
+    border-bottom: 1px solid #150129;
+`;
 
+const StyledProject = styled.div`
+    display: grid;
+    grid-template-rows: 40px auto auto auto;
+    margin-bottom: 2em;
+`;
+
+const StyledHr = styled.hr`
+    color: deeppink;
+    background-color: deeppink;
+`
+
+const StyledVersion = styled.div`
+    display: inline-block;
+    background-color: #d3d6d6;
+    line-height: 1.4em;
+    padding: 4px 10px;
+    margin: 4px;
+    border-radius: 3px;
+    font-size: 12px;
+`
 
 const Project = ({ Data }) =>
-    <>
-        <div>
-            <h1>{Data.title}</h1>
-            <p>{Data.description}</p>
-        </div>
-        <hr />
-    </>
+    <StyledProject>
+        <StyledH1>{Data.title}</StyledH1>
+        <p>{Data.description}</p>
+        <ul><StyledVersion>1</StyledVersion></ul>
+        <StyledHr />
+    </StyledProject>
+
 
 const Projects = () => {
     const data = useStaticQuery(graphql`
