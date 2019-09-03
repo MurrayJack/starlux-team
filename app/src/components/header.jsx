@@ -13,7 +13,6 @@ const StyledHeader = styled.header`
   box-sizing: border-box;
   color: white;
   padding: 2.5em;
-  text-align: right;
   background-color: rgba(0, 0, 0, 0.4);
 `
 
@@ -26,6 +25,12 @@ const MailToLink = styled.a`
   &:hover {
     text-decoration: underline;
   }
+`;
+
+const Align = styled.div`
+  text-align: right;
+  display: grid;
+  justify-content: right;
 `;
 
 const Header = () => {
@@ -56,15 +61,15 @@ const Header = () => {
     >
       <StyledHeader>
 
-        <div><TeamLogo /></div>
+        <Align><TeamLogo /></Align>
 
-        <div>{data.sanityApp.moto}</div>
+        <Align><p>{data.sanityApp.moto}</p></Align>
 
         <div><hr /></div>
 
-        <div><Members /></div>
+        <Align><Members /></Align>
 
-        <div><MailToLink href="mailto:data.sanityApp.email">{data.sanityApp.email}</MailToLink></div>
+        <Align><MailToLink href="mailto:data.sanityApp.email">{data.sanityApp.email}</MailToLink></Align>
       </StyledHeader>
     </BackgroundImage>
   )

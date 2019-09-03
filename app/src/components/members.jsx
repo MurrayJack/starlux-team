@@ -30,7 +30,7 @@ const Members = () => {
     `);
 
     return (
-        <>
+        <div>
             <UL>
                 {data.current.nodes.map((e) => <li>{e.name}</li>)}
             </UL>
@@ -38,7 +38,7 @@ const Members = () => {
             <UL>
                 {data.alumni.nodes.map((e) => <li>{e.name}</li>)}
             </UL>
-        </>)
+        </div>)
 }
 
 export default Members;
