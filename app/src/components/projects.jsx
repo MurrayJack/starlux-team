@@ -5,8 +5,13 @@ import styled from "styled-components";
 const StyledHeader = styled.header`
   padding: 2.5em;
   box-sizing: border-box;
-  height: 100vh;
-  overflow: scroll;
+  text-align: center;
+
+  @media (min-width: 920px) {
+    height: 100vh;
+    overflow: scroll;
+    text-align: left;
+  }
 `
 
 const StyledH1 = styled.h1`
