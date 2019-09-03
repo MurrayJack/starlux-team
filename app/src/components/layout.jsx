@@ -8,7 +8,7 @@ import "./layout.css"
 const Wrapper = styled.div`
     display: grid;
     min-height: 100vh;
-    grid-template-rows: 400px 1fr;
+    grid-template-rows: auto 1fr;
 
     @media (min-width: 920px) {
       grid-template-rows: unset;
