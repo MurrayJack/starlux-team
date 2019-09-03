@@ -41,7 +41,7 @@ const Header = () => {
         email
     }
 
-    desktop: file(relativePath: { eq: "backgound.jpg" }) {
+    desktop: file(relativePath: { eq: "background.jpg" }) {
           childImageSharp {
             fluid(quality: 90, maxWidth: 1920) {
               ...GatsbyImageSharpFluid_withWebp
