@@ -28,9 +28,15 @@ const MailToLink = styled.a`
 `;
 
 const Align = styled.div`
-  text-align: right;
+  text-align: center;
   display: grid;
-  justify-content: right;
+  justify-content: center;
+
+  @media (min-width: 920px) {
+    text-align: right;
+    display: grid;
+    justify-content: right;
+  }
 `;
 
 const Header = () => {
