@@ -7,7 +7,7 @@ import BackgroundImage from 'gatsby-background-image'
 
 const StyledHeader = styled.header`
   display: grid;
-  grid-template-rows: 100px 20px 10px 1fr 20px;
+  grid-template-rows: 100px auto 10px 1fr 20px;
   grid-gap: 20px;
   height: 100%;
   box-sizing: border-box;

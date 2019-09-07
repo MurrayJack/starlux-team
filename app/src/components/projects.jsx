@@ -23,7 +23,7 @@ const StyledH1 = styled.h1`
 
 const StyledProject = styled.div`
     display: grid;
-    grid-template-rows: 40px auto auto auto;
+    grid-template-rows: auto auto auto auto;
     margin-bottom: 2em;
 `;
 
