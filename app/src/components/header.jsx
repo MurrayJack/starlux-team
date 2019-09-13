@@ -75,7 +75,7 @@ const Header = () => {
 
         <Align><Members /></Align>
 
-        <Align><MailToLink href="mailto:data.sanityApp.email">{data.sanityApp.email}</MailToLink></Align>
+        <Align><MailToLink href={"mailto:" + data.sanityApp.email}>{data.sanityApp.email}</MailToLink></Align>
       </StyledHeader>
     </BackgroundImage>
   )
