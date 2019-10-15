@@ -28,6 +28,17 @@ module.exports = {
       },
     },
     {
+      resolve: "gatsby-source-graphql",
+      options: {
+        // This type will contain remote schema Query type
+        typeName: "COVERAGE",
+        // This is the field under which it's accessible
+        fieldName: "coverage",
+        // URL to query from
+        url: "https://us-central1-coverage-lux-data.cloudfunctions.net/graphql",
+      },
+    },
+    {
       resolve: 'gatsby-source-sanity',
       options: {
         projectId: 'uz9llh6i',

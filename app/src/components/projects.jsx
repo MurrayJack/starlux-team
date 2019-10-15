@@ -14,11 +14,23 @@ const StyledHeader = styled.header`
   }
 `
 
-const StyledH1 = styled.h1`
-    padding: 0;
-    margin: 0;
-    font-size: 1.5em;
+const StyledH1 = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto;
     border-bottom: 1px solid currentColor;
+    align-items: center;
+
+    > h1 {
+        padding: 0;
+        margin: 0;
+        font-size: 1.5em;
+    }
+
+    > div {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        grid-gap: 4px;
+    }
 `;
 
 const StyledProject = styled.div`
@@ -53,13 +65,63 @@ const StyledVersion = styled.li`
     }
 `
 
-const Project = ({ Data }) =>
-    <StyledProject>
-        <StyledH1>{Data.title}</StyledH1>
+const StyledPercentage = styled.div`
+    display: inline-block;
+    background-color: green;
+    color: white;
+    line-height: 1.4em;
+    margin: 4px;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 4px 8px;
+`
+
+const StyledPercentageBad = styled.div`
+    display: inline-block;
+    background-color: darkred;
+    color: white;
+    line-height: 1.4em;
+    margin: 4px;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 4px 8px;
+`
+
+const CoverageIndicator = ({ Initial, Value }) => {
+    if (Value === undefined || Value === null || Value === 0) {
+        return null;
+    }
+
+    if (Value > 80) {
+        return Value && <StyledPercentage>{Initial}: {Value}%</StyledPercentage>
+    } else {
+        return Value && <StyledPercentageBad>{Initial}: {Value}%</StyledPercentageBad>
+    }
+}
+
+const Project = ({ Data, Coverage }) => {
+
+    let coverage = [];
+
+    if (Data.coverageCode) {
+        [coverage] = Coverage.latestProductPercent.filter(e => e.product === Data.coverageCode);
+    }
+
+    return <StyledProject>
+        <StyledH1>
+            <h1>{Data.title}</h1>
+            <div>
+                <CoverageIndicator Initial="B" Value={coverage.branches} />
+                <CoverageIndicator Initial="F" Value={coverage.functions} />
+                <CoverageIndicator Initial="L" Value={coverage.lines} />
+                <CoverageIndicator Initial="S" Value={coverage.statements} />
+            </div>
+        </StyledH1>
         <p>{Data.description}</p>
         <ul>{Data.versions.map((e) => <StyledVersion><a target="_new" href={e.url}>{e.version}</a></StyledVersion>)}</ul>
         <StyledHr />
     </StyledProject>
+}
 
 
 const Projects = () => {
@@ -68,11 +130,23 @@ const Projects = () => {
             allSanityProject {
                 nodes {
                     title
-          	        description
+                    description
+                    coverageCode
           	        versions {
                         version
                         url
                     }
+                }
+            }
+
+            coverage {
+                latestProductPercent {
+                    product
+                    patch
+                    branches
+                    functions
+                    lines
+                    statements
                 }
             }
         }    
@@ -80,7 +154,7 @@ const Projects = () => {
 
     return (
         <StyledHeader>
-            {data.allSanityProject.nodes.map((e) => <Project Data={e} />)}
+            {data.allSanityProject.nodes.map((e) => <Project Data={e} Coverage={data.coverage} />)}
         </StyledHeader>)
 
 }
