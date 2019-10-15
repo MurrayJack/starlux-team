@@ -101,10 +101,12 @@ const CoverageIndicator = ({ Initial, Value }) => {
 
 const Project = ({ Data, Coverage }) => {
 
-    let coverage = [];
+    let coverage = {};
 
     if (Data.coverageCode) {
         [coverage] = Coverage.latestProductPercent.filter(e => e.product === Data.coverageCode);
+
+        if (!coverage) coverage = {};
     }
 
     return <StyledProject>
