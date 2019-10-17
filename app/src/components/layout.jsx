@@ -9,6 +9,7 @@ const Wrapper = styled.div`
     display: grid;
     min-height: 100vh;
     grid-template-rows: auto 1fr;
+    background-color: #f7f7f7;
 
     @media (min-width: 920px) {
       grid-template-rows: unset;

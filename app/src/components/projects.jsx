@@ -14,11 +14,21 @@ const StyledHeader = styled.header`
   }
 `
 
+const StyledContent = styled.div`
+    padding: 1em;
+
+    > p {
+        font-size: 16px;
+        margin-bottom: 3em;
+    }
+`;
+
 const StyledH1 = styled.div`
     display: grid;
     grid-template-columns: 1fr auto;
-    border-bottom: 1px solid currentColor;
+    border-bottom: 1px solid #e7e7e7;
     align-items: center;
+    padding: 1em;
 
     > h1 {
         padding: 0;
@@ -29,7 +39,6 @@ const StyledH1 = styled.div`
     > div {
         display: grid;
         grid-template-columns: auto auto auto auto;
-        grid-gap: 4px;
     }
 `;
 
@@ -37,21 +46,20 @@ const StyledProject = styled.div`
     display: grid;
     grid-template-rows: auto auto auto auto;
     margin-bottom: 2em;
+    background-color: white;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px #e7e7e7;
 `;
 
-const StyledHr = styled.hr`
-    color: deeppink;
-    background-color: deeppink;
-`
 
 const StyledVersion = styled.li`
     display: inline-block;
     background-color: #e3e6e6;
     line-height: 1.4em;
-    margin: 4px;
+    margin: 4px 8px 4px 0;
     border-radius: 3px;
     font-size: 14px;
-
+    
     > a {
         display: inline-block;
         text-decoration: none;
@@ -70,10 +78,12 @@ const StyledPercentage = styled.div`
     background-color: green;
     color: white;
     line-height: 1.4em;
-    margin: 4px;
+    margin: 4px 0 4px 8px;
     border-radius: 3px;
     font-size: 14px;
     padding: 4px 8px;
+    width: 45px;
+    text-align:center;
 `
 
 const StyledPercentageBad = styled.div`
@@ -81,21 +91,23 @@ const StyledPercentageBad = styled.div`
     background-color: darkred;
     color: white;
     line-height: 1.4em;
-    margin: 4px;
+    margin: 4px 0 4px 8px;
     border-radius: 3px;
     font-size: 14px;
     padding: 4px 8px;
+    width: 45px;
+    text-align:center;
 `
 
 const CoverageIndicator = ({ Initial, Value }) => {
-    if (Value === undefined || Value === null || Value === 0) {
+    if (Value === undefined || Value === null) {
         return null;
     }
 
     if (Value > 80) {
-        return Value && <StyledPercentage>{Initial}: {Value}%</StyledPercentage>
+        return <StyledPercentage>{Initial}: {parseInt(Value)}%</StyledPercentage>
     } else {
-        return Value && <StyledPercentageBad>{Initial}: {Value}%</StyledPercentageBad>
+        return <StyledPercentageBad>{Initial}: {parseInt(Value)}%</StyledPercentageBad>
     }
 }
 
@@ -111,7 +123,7 @@ const Project = ({ Data, Coverage }) => {
 
     return <StyledProject>
         <StyledH1>
-            <h1>{Data.title}</h1>
+            <h1>{Data.title} - {coverage.patch}</h1>
             <div>
                 <CoverageIndicator Initial="B" Value={coverage.branches} />
                 <CoverageIndicator Initial="F" Value={coverage.functions} />
@@ -119,9 +131,11 @@ const Project = ({ Data, Coverage }) => {
                 <CoverageIndicator Initial="S" Value={coverage.statements} />
             </div>
         </StyledH1>
-        <p>{Data.description}</p>
-        <ul>{Data.versions.map((e) => <StyledVersion><a target="_new" href={e.url}>{e.version}</a></StyledVersion>)}</ul>
-        <StyledHr />
+
+        <StyledContent>
+            <p>{Data.description}</p>
+            <ul>{Data.versions.map((e) => <StyledVersion><a target="_new" href={e.url}>{e.version}</a></StyledVersion>)}</ul>
+        </StyledContent>
     </StyledProject>
 }
 
