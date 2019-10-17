@@ -73,9 +73,20 @@ const StyledVersion = styled.li`
     }
 `
 
-const StyledPercentage = styled.div`
+const StyledPercentageGood = styled.div`
     display: inline-block;
-    background-color: green;
+    background-color: #50B83C;
+    color: white;
+    line-height: 1.4em;
+    margin: 4px;
+    border-radius: 3px;
+    font-size: 14px;
+    padding: 4px 8px;
+`
+
+const StyledPercentageOk = styled.div`
+    display: inline-block;
+    background-color: #e7b416;
     color: white;
     line-height: 1.4em;
     margin: 4px 0 4px 8px;
@@ -88,7 +99,7 @@ const StyledPercentage = styled.div`
 
 const StyledPercentageBad = styled.div`
     display: inline-block;
-    background-color: darkred;
+    background-color: #cc3232;
     color: white;
     line-height: 1.4em;
     margin: 4px 0 4px 8px;
@@ -104,8 +115,11 @@ const CoverageIndicator = ({ Initial, Value }) => {
         return null;
     }
 
-    if (Value > 80) {
-        return <StyledPercentage>{Initial}: {parseInt(Value)}%</StyledPercentage>
+    if (Value < 80 && Value > 60) {
+        return Value && <StyledPercentageOk>{Initial}: {parseInt(Value)}%</StyledPercentageOk>
+    }
+    else if (Value > 80) {
+        return <StyledPercentageGood>{Initial}: {parseInt(Value)}%</StyledPercentageGood>
     } else {
         return <StyledPercentageBad>{Initial}: {parseInt(Value)}%</StyledPercentageBad>
     }
