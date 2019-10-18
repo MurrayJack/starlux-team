@@ -75,40 +75,56 @@ const StyledVersion = styled.li`
 
 const StyledPercentage = styled.div`
     display: inline-block;
-    background-color: green;
     color: white;
+    background-color: ${(props) => props.BackgroundColor};
     line-height: 1.4em;
-    margin: 4px 0 4px 8px;
+    margin: 0;
     border-radius: 3px;
     font-size: 14px;
     padding: 4px 8px;
     width: 45px;
     text-align:center;
-`
+`;
 
-const StyledPercentageBad = styled.div`
-    display: inline-block;
-    background-color: darkred;
-    color: white;
-    line-height: 1.4em;
-    margin: 4px 0 4px 8px;
-    border-radius: 3px;
-    font-size: 14px;
-    padding: 4px 8px;
-    width: 45px;
-    text-align:center;
-`
+const CoverageIndicatorContainer = styled.div`
+    display: grid;
+    column-gap: 8px;
+`;
 
 const CoverageIndicator = ({ Initial, Value }) => {
+    // 0%: #e74c3c
+    // 50%: #f1c40f
+    // 100%: #27ae60
+    var percentColors = [
+        { pct: 0.0, color: { r: 0xE7, g: 0x4C, b: 0x3C } },
+        { pct: 0.5, color: { r: 0xF1, g: 0xC4, b: 0xF } },
+        { pct: 1.0, color: { r: 0x27, g: 0xAE, b: 0x60 } }];
+
+    var getColorForPercentage = function (pct) {
+        for (var i = 1; i < percentColors.length - 1; i++) {
+            if (pct < percentColors[i].pct) {
+                break;
+            }
+        }
+        var lower = percentColors[i - 1];
+        var upper = percentColors[i];
+        var range = upper.pct - lower.pct;
+        var rangePct = (pct - lower.pct) / range;
+        var pctLower = 1 - rangePct;
+        var pctUpper = rangePct;
+        var color = {
+            r: Math.floor(lower.color.r * pctLower + upper.color.r * pctUpper),
+            g: Math.floor(lower.color.g * pctLower + upper.color.g * pctUpper),
+            b: Math.floor(lower.color.b * pctLower + upper.color.b * pctUpper)
+        };
+        return 'rgb(' + [color.r, color.g, color.b].join(',') + ')';
+    }
+
     if (Value === undefined || Value === null) {
         return null;
     }
 
-    if (Value > 80) {
-        return <StyledPercentage>{Initial}: {parseInt(Value)}%</StyledPercentage>
-    } else {
-        return <StyledPercentageBad>{Initial}: {parseInt(Value)}%</StyledPercentageBad>
-    }
+    return <StyledPercentage BackgroundColor={getColorForPercentage(Value / 100)}>{Initial}: {parseInt(Value)}%</StyledPercentage>
 }
 
 const Project = ({ Data, Coverage }) => {
@@ -124,12 +140,12 @@ const Project = ({ Data, Coverage }) => {
     return <StyledProject>
         <StyledH1>
             <h1>{Data.title} - {coverage.patch}</h1>
-            <div>
+            <CoverageIndicatorContainer>
                 <CoverageIndicator Initial="B" Value={coverage.branches} />
                 <CoverageIndicator Initial="F" Value={coverage.functions} />
                 <CoverageIndicator Initial="L" Value={coverage.lines} />
                 <CoverageIndicator Initial="S" Value={coverage.statements} />
-            </div>
+            </CoverageIndicatorContainer>
         </StyledH1>
 
         <StyledContent>
