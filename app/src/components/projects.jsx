@@ -34,6 +34,10 @@ const StyledH1 = styled.div`
         padding: 0;
         margin: 0;
         font-size: 1.5em;
+
+        span {
+            font-size: 0.8em;
+        }
     }
 
     > div {
@@ -139,7 +143,7 @@ const Project = ({ Data, Coverage }) => {
 
     return <StyledProject>
         <StyledH1>
-            <h1>{Data.title} - {coverage.patch}</h1>
+            <h1>{Data.title}<span>{coverage.patch && ` - (${coverage.patch})`}</span></h1>
             <CoverageIndicatorContainer>
                 <CoverageIndicator Initial="B" Value={coverage.branches} />
                 <CoverageIndicator Initial="F" Value={coverage.functions} />
